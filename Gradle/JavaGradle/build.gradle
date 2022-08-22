@@ -34,12 +34,18 @@ task runAppAgain(type: JavaExec) {
 
   // only works if two arguments are provided
   // Try: using default values in case non or only one parameter is provided
-  if (project.hasProperty("num1") && project.hasProperty("num2")) {
+  // two arguments supplied
+  if (project.hasProperty('num1') && project.hasProperty('num2')) {
     args(project.getProperty('num1'), project.getProperty('num2'));
-  } else if (project.hasProperty("num1")){
-    args(project.getProperty('num1'), 1);
+  // only first argument supplied
+  } else if (project.hasProperty('num1') && !project.hasProperty('num2')){
+    args(project.getProperty('num1'), 2);
+  // only second argument supplied
+  } else if (!project.hasProperty('num1') && project.hasProperty('num2')){
+    args(3, project.getProperty('num2'));
+  // no arguments supplied
   } else {
-    args(2, 4);
+    args(7, 6);
   }
 }
 
