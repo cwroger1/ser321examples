@@ -38,6 +38,8 @@ task runAppAgain(type: JavaExec) {
     args(project.getProperty('num1'), project.getProperty('num2'));
   } else if (project.hasProperty("num1")){
     args(project.getProperty('num1'), 1);
+  } else {
+    args(2, 4);
   }
 }
 
@@ -49,6 +51,31 @@ task runFraction(type: JavaExec) {
   classpath = sourceSets.main.runtimeClasspath
 
   main = 'Fraction'
+}
+
+// task that runs the Fraction Main which does use arguments: 
+// gradle runFrac (optional argument) (optional argument)
+task runFrac(type: JavaExec) {
+  group 'Fraction Tasks'
+  description 'Task which runs Fraction with up to 2 arguments'
+
+  classpath = sourceSets.main.runtimeClasspath
+
+  main = 'Fraction'
+
+  // two arguments supplied
+  if (project.hasProperty('num') && project.hasProperty('denom')) {
+    args(project.getProperty('num'), project.getProperty('denom'));
+  // only numerator supplied
+  } else if (project.hasProperty('num') && !project.hasProperty('denom')){
+    args(project.getProperty('num'), 1);
+  // only denominator supplied
+  } else if (!project.hasProperty('num') && project.hasProperty('denom')){
+    args(1, project.getProperty('denom'));
+  // no arguments supplied
+  } else {
+    args(42, 5);
+  }
 }
 
 // Try:
