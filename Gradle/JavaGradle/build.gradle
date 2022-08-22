@@ -51,6 +51,7 @@ task runFraction(type: JavaExec) {
   classpath = sourceSets.main.runtimeClasspath
 
   main = 'Fraction'
+  args(1, 2);
 }
 
 // task that runs the Fraction Main which does use arguments: 
